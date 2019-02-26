@@ -6,9 +6,11 @@ module.exports = app => {
     
     app.route('/movies/:id')
         .get(app.api.movie.getMovieById)
-    
+
     app.route('/movies/:id/actors')
+        .get(app.api.movie.getCastFromMovie)
         .post(app.api.movie.addCast)
+        
     
     // Genres Routes
     app.route('/genres')

@@ -12,6 +12,13 @@ module.exports = app => {
             .then(data => res.json(data))
             .catch(err => res.status(500).send(err))
     }
+    const getCastFromMovie = (req, res) => {
+        app.db('movies_actors')
+            .innerJoin('actors', 'movies_actors.actor_id', 'actors.id')
+            .where({movie_id: req.params.id})
+            .then(data => res.json(data))
+            .catch(err => res.status(500).send(err))
+    }
     // Mutations
     const saveMovie = (req, res) => {
         const movie = { ...req.body }
@@ -37,5 +44,5 @@ module.exports = app => {
             .then(data => res.status(204).send())
             .catch(err => res.status(500).send(err))
     } 
-    return { saveMovie, getMovies, getMovieById, addCast}
+    return { saveMovie, getMovies, getMovieById, addCast, getCastFromMovie}
 }
