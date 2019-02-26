@@ -12,11 +12,15 @@ module.exports = app => {
             .then(data => res.json(data))
             .catch(err => res.status(500).send(err))
     }
-    const getCastFromMovie = (req, res) => {
+    const getCastFromMovie = async (req, res) => {
+        const movie = await app.db("movies").where({id: req.params.id}).first()
         app.db('movies_actors')
             .innerJoin('actors', 'movies_actors.actor_id', 'actors.id')
             .where({movie_id: req.params.id})
-            .then(data => res.json(data))
+            .then(data => {
+                movie.cast = data
+                return res.json(movie)
+            })
             .catch(err => res.status(500).send(err))
     }
     // Mutations

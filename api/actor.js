@@ -1,7 +1,8 @@
 module.exports = app => {
     const saveActor = (req, res) => {
         const actor = { ...req.body}
-
+        console.log(req.body);
+        
         app.db('actors')
             .insert(actor)
             .then(data => res.status(204).send())
