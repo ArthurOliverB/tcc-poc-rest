@@ -31,4 +31,12 @@ module.exports = app => {
 
     app.route('/actors/:id')
         .get(app.api.actor.getActorById)
+
+    // Directors Routes
+    app.route('/directors')
+        .post(app.api.director.saveDirector)
+        .get(app.api.director.getDirectors)
+    
+    app.route('/directors/:id')
+        .get(app.api.director.getDirectorById)
 }  
